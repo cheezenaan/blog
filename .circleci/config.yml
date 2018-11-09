@@ -2,9 +2,11 @@ version: 2
 default_settings: &default_settings
   docker:
     - image: circleci/node:8.12.0-stretch
+      environment:
+        REVIEWDOG_VERSION: '0.9.11'
   working_directory: ~/repo
 jobs:
-  build:
+  prebuild:
     <<: *default_settings
     steps:
       - checkout
@@ -18,8 +20,18 @@ jobs:
           key: yarn-packages-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-      - run: yarn lint
+      - run: curl -fSL https://github.com/haya14busa/reviewdog/releases/download/$REVIEWDOG_VERSION/reviewdog_linux_amd64 -o reviewdog && chmod +x ./reviewdog
+      - run: ./reviewdog -reporter=github-pr-check
       - run: yarn typecheck
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - .
+  build:
+    <<: *default_settings
+    steps:
+      - attach_workspace:
+          - at: ~/repo
       - run: yarn build
       - persist_to_workspace:
           root: ~/repo
@@ -30,4 +42,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - build
+      - prebuild
+      - build:
+          requires:
+            - prebuild
