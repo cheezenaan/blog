@@ -1,0 +1,7 @@
+runner:
+  eslint:
+    cmd: $(yarn bin)/eslint --ext js,tsx src/
+  stylelint:
+    cmd: $(yarn bin)/stylelint src/**/*.css
+  tsc:
+    cmd: $(yarn bin)/tsc --noemit
