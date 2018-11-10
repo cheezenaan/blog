@@ -6,8 +6,12 @@ interface Props {
   siteTitle: string;
 }
 
-export const Header: React.SFC<Props> = ({ siteTitle }) => (
+export const Header: React.SFC<> = ({ siteTitle }) => (
   <Title>
     <Link to="/">{siteTitle}</Link>
+    aaaaaaaaa
   </Title>
 );
+
+const sound = 'euphonium';
+console.log({ sound });

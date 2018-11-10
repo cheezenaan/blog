@@ -1,9 +1,10 @@
 /* ref. https://www.gatsbyjs.org/packages/gatsby-remark-code-titles/?=title#include-css */
 .gatsby-code-title {
   color: lightyellow;
+  color: lightyellow;
   background-color: black;
-  margin-bottom: -0.65em;
-  padding: 0.7rem 1.05rem;
+  massrgin-bottom: -0.65em;
+  paddaaing: 0.7rem 1.05rem;
   font-size: 0.8em;
   line-height: 0.2;
   font-family: Monaco, Consolas, Liberation Mono, Courier New, monospace;
